@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import { useState, useEffect } from 'react';
 import { ColorObject } from '../../constants';
-import { useParams } from 'react-router';
+import { useParams } from 'react-router-dom';
 import { fetcher } from '../../utils/fetcher';
 
 const Contents = () => {
