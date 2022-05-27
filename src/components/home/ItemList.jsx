@@ -1,35 +1,52 @@
 import styled from '@emotion/styled';
 import { useState, useEffect, memo } from 'react';
+import { useRecoilValue } from 'recoil';
+import { searchValueState, searchValidState } from '../../store';
 
-import { BASIC_PAGE_WIDTH, BASIC_SERVER_URL } from '../../constants';
+
+import { BASIC_PAGE_WIDTH } from '../../constants';
 import ItemCard from './ItemCard';
 import { fetcher } from '../../utils/fetcher';
 
 const ItemList = () => {
-  const [data, setData] = useState([]);
+  const [originProducts, setOriginProducts] = useState([]);
+  const [products, setProducts] = useState([]);
+  const searchValue = useRecoilValue(searchValueState);
+  const searchValid = useRecoilValue(searchValidState);
 
-  const getData = async () => {
+  const getProducts = async () => {
     const products = await fetcher('/products/', 'GET');
 
-    setData([...products.results]);
+    setOriginProducts([...products.results]);
+    setProducts([...products.results]);
   };
 
   useEffect(() => {
-    getData();
+    getProducts();
   }, []);
+
+  useEffect(() => {
+    if (searchValid) {
+      if (searchValue !== '') {
+        setProducts(originProducts.filter((product) => product.product_name.search(searchValue) !== -1));
+      } else {
+        setProducts(originProducts);
+      }
+    }
+  }, [searchValid]);
 
   return (
     <ItemListWrapper>
       <FlexBox>
-        {data.map((item) => (
+        {products.map((product) => (
           <ItemCard
-            key={item.product_id}
-            id={item.product_id}
-            img={item.image}
-            seller={item.seller_store}
-            product={item.product_name}
-            price={item.price}
-            alt={item.product_name}
+            key={product.product_id}
+            id={product.product_id}
+            img={product.image}
+            seller={product.seller_store}
+            product={product.product_name}
+            price={product.price}
+            alt={product.product_name}
           />
         ))}
       </FlexBox>

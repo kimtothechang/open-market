@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 import { useState, useCallback, memo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
-import { myPageToggle } from '../../store';
+import { myPageToggle, searchValidState, searchValueState } from '../../store';
 import IconButton from './header/IconButton';
 
 import { BASIC_PAGE_WIDTH, ColorObject } from '../../constants';
@@ -21,6 +21,8 @@ const Header = () => {
   const [searchValue, setSearchValue] = useState('');
   const [toggle, setToggle] = useRecoilState(myPageToggle);
   const [logined, setLogined] = useState(false);
+  const [searchValue2, setSearchValue2] = useRecoilState(searchValueState);
+  const [searchValid, setSearchValid] = useRecoilState(searchValidState);
   const navigate = useNavigate();
 
   const goCart = useCallback(() => {
@@ -33,8 +35,15 @@ const Header = () => {
   const goLogin = useCallback(() => navigate('/login'), []);
 
   const onChangeSearch = useCallback((e) => {
-    setSearchValue(e.target.value);
+    setSearchValue2(e.target.value);
+    setSearchValid(false);
   }, []);
+
+  const onCheckEnter = (e) => {
+    if (e.key === 'Enter') {
+      setSearchValid(true);
+    }
+  }
 
   const LogOut = () => {
     localStorage.clear();
@@ -54,11 +63,11 @@ const Header = () => {
   return (
     <HeaderWrapper>
       <MyHeader>
-        <SearchWrapper>
+        <SearchWrapper onKeyDown={onCheckEnter}>
           <h1>
             <Logo src={`${process.env.PUBLIC_URL}/img/logo.png`} onClick={goHome} />
           </h1>
-          <SearchInput type="text" value={searchValue} placeholder="상품을 검색해보세요" onChange={onChangeSearch} />
+          <SearchInput type="text" value={searchValue2} placeholder="상품을 검색해보세요" onChange={onChangeSearch} />
         </SearchWrapper>
         <IconWrapper>
           {logined ? <IconButton onClick={goCart} text="장바구니" src={`${process.env.PUBLIC_URL}/assets/icon-shopping-cart.svg`} /> : null}

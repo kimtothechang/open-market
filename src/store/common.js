@@ -41,4 +41,15 @@ const oneOrderState = atom({
   },
 });
 
-export { loginState, myPageToggle, totalPayment, finalOrderInfo, orderKindInfo, oneOrderState };
+// 검색용 State
+const searchValueState = atom({
+  key: 'searchValueState',
+  default: '',
+})
+
+const searchValidState = atom({
+  key: 'searchValidState',
+  default: false,
+})
+
+export { loginState, myPageToggle, totalPayment, finalOrderInfo, orderKindInfo, oneOrderState,searchValueState,searchValidState };
