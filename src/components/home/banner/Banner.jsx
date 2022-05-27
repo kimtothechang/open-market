@@ -2,30 +2,7 @@ import { useState, memo } from 'react';
 import styled from '@emotion/styled';
 import BannerCard from './BannerCard';
 import BannerButton from './BannerButton';
-import { BASIC_PAGE_WIDTH } from '../../../constants';
-
-const dummyBannerImg = [
-  {
-    id: 0,
-    src: `${process.env.PUBLIC_URL}/assets/banner/banner1.jpg`,
-    alt: '배너이미지',
-  },
-  {
-    id: 1,
-    src: `${process.env.PUBLIC_URL}/assets/banner/banner2.jpg`,
-    alt: '배너이미지',
-  },
-  {
-    id: 2,
-    src: `${process.env.PUBLIC_URL}/assets/banner/banner3.jpg`,
-    alt: '배너이미지',
-  },
-  {
-    id: 3,
-    src: `${process.env.PUBLIC_URL}/assets/banner/banner4.jpg`,
-    alt: '배너이미지',
-  },
-];
+import { BASIC_PAGE_WIDTH, BannerImg } from '../../../constants';
 
 const Banner = () => {
   const [caroucel, setCaroucel] = useState(0);
@@ -41,28 +18,28 @@ const Banner = () => {
       if (current > 0) {
         return current - 1;
       } else {
-        return dummyBannerImg.length - 1;
+        return BannerImg.length - 1;
       }
     });
     setActiveImg((current) => {
       if (current > 1) {
         return current - 1;
       } else {
-        return dummyBannerImg.length;
+        return BannerImg.length;
       }
     });
   };
 
   const moveNextCaroucel = () => {
     setCaroucel((current) => {
-      if (current < dummyBannerImg.length - 1) {
+      if (current < BannerImg.length - 1) {
         return current + 1;
       } else {
         return 0;
       }
     });
     setActiveImg((current) => {
-      if (current < dummyBannerImg.length) {
+      if (current < BannerImg.length) {
         return current + 1;
       } else {
         return 1;
@@ -73,12 +50,12 @@ const Banner = () => {
   return (
     <MyBanner>
       <ImgWrapper howMove={caroucel}>
-        {dummyBannerImg.map((card) => (
+        {BannerImg.map((card) => (
           <BannerCard key={card.id} src={card.src} alt={card.alt} />
         ))}
       </ImgWrapper>
       <ButtonWrapper activated={activeImg}>
-        {dummyBannerImg.map((card) => (
+        {BannerImg.map((card) => (
           <BannerButton key={card.id} onClick={() => moveCaroucel(card)} />
         ))}
       </ButtonWrapper>

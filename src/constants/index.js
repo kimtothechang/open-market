@@ -27,4 +27,27 @@ const ColorObject = {
   basic: '#21bf48',
 };
 
-export { BASIC_PAGE_WIDTH, BASIC_SERVER_URL, ERROR_MESSAGE, regxObj, ColorObject };
+const BannerImg =[
+  {
+    id: 0,
+    src: `${process.env.PUBLIC_URL}/assets/banner/banner1.jpg`,
+    alt: '배너이미지',
+  },
+  {
+    id: 1,
+    src: `${process.env.PUBLIC_URL}/assets/banner/banner2.jpg`,
+    alt: '배너이미지',
+  },
+  {
+    id: 2,
+    src: `${process.env.PUBLIC_URL}/assets/banner/banner3.jpg`,
+    alt: '배너이미지',
+  },
+  {
+    id: 3,
+    src: `${process.env.PUBLIC_URL}/assets/banner/banner4.jpg`,
+    alt: '배너이미지',
+  },
+];
+
+export { BASIC_PAGE_WIDTH, BASIC_SERVER_URL, ERROR_MESSAGE, regxObj, ColorObject, BannerImg };
