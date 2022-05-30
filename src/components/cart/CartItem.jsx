@@ -99,7 +99,8 @@ const CartItem = ({ image, seller, name, price, shippingFee, quantity, setState,
   return (
     <CartItemWrapper>
       <ItemInfo>
-        <input type="checkbox" onChange={() => toggleIsActive()} checked={isActive} />
+        <input type="checkbox" id={productId} onChange={() => toggleIsActive()} checked={isActive} />
+        <label for={productId}></label>
         <img src={image} alt="상품 사진" />
         <div>
           <p>{seller}</p>
@@ -167,6 +168,32 @@ const ItemInfo = styled.div`
   padding: 20px 30px;
   min-width: 400px;
   flex-grow: 1;
+
+  & > input[type='checkbox'] {
+    display: none;
+  }
+
+  & > label {
+    position: relative;
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 2px solid ${ColorObject.basic};
+    border-radius: 10px;
+    cursor: pointer;
+  }
+
+  & > input:checked + label:after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 12px;
+    height: 12px;
+    border-radius: 6px;
+    background-color: ${ColorObject.basic};
+  }
 
   & > img {
     margin-left: 40px;
