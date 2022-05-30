@@ -7,16 +7,20 @@ import { searchValueState, searchValidState } from '../../store';
 import { BASIC_PAGE_WIDTH } from '../../constants';
 import ItemCard from './ItemCard';
 import { fetcher } from '../../utils/fetcher';
+import Loading from '../common/Loading';
 
 const ItemList = () => {
   const [originProducts, setOriginProducts] = useState([]);
   const [products, setProducts] = useState([]);
   const searchValue = useRecoilValue(searchValueState);
   const searchValid = useRecoilValue(searchValidState);
+  const [loading, setLoading] = useState(false);
 
   const getProducts = async () => {
+    setLoading(true);
     const products = await fetcher('/products/', 'GET');
 
+    setLoading(false);
     setOriginProducts([...products.results]);
     setProducts([...products.results]);
   };
@@ -37,6 +41,7 @@ const ItemList = () => {
 
   return (
     <ItemListWrapper>
+      {loading ? <Loading/> : 
       <FlexBox>
         {products.map((product) => (
           <ItemCard
@@ -49,7 +54,7 @@ const ItemList = () => {
             alt={product.product_name}
           />
         ))}
-      </FlexBox>
+      </FlexBox>}
     </ItemListWrapper>
   );
 };

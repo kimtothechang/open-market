@@ -8,6 +8,8 @@ import TotalPriceInfo from '../components/cart/TotalPriceInfo';
 
 import { BASIC_PAGE_WIDTH, ColorObject } from '../constants';
 import { fetcher, fetcherAuth, fetcherBody } from '../utils/fetcher';
+import Loading from '../components/common/Loading';
+import CartHeader from '../components/cart/CartHeader';
 
 const CartContainer = () => {
   const [products, setProducts] = useState([]);
@@ -16,16 +18,20 @@ const CartContainer = () => {
   const [totalPrice, setTotalPrice] = useState(0);
   const [orderProducts, setOrderProducts] = useState([]);
   const [allCheck, setAllCheck] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   // 최초 페이지 접근 시 장바구니 내 상품 정보 불러오기
   useEffect(() => {
     const presetData = async () => {
+      setLoading(true);
       const cartInfo = await fetcherAuth('cart/', 'GET');
       const productInfo = [];
       for (let product of cartInfo.results) {
         const res = await fetcher(`products/${product.product_id}`, 'GET');
         productInfo.push({ ...product, ...res });
       }
+
+      setLoading(false);
       setProducts(productInfo);
     };
 
@@ -109,7 +115,9 @@ const CartContainer = () => {
   return (
     <CartListWrapper>
       <Heading title="장바구니" />
-      <CartList setProducts={setProducts} handleAllCheck={handleAllCheck} allCheck={allCheck} products={products} />
+      <CartHeader handleAllCheck={handleAllCheck} allCheck={allCheck} />
+      {loading ? <Loading /> : 
+      <CartList setProducts={setProducts}  products={products} />}
       <TotalPriceInfo productsPrice={productsPrice} shippingPrice={shippingPrice} totalPrice={totalPrice} />
       <OrderLink to="/order" state={{ orderProducts, order_kind: 'cart_order' }}>
         <OrderButton>주문하기</OrderButton>
