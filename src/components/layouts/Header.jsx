@@ -65,7 +65,7 @@ const Header = () => {
       <MyHeader>
         <SearchWrapper onKeyDown={onCheckEnter}>
           <h1>
-            <Logo src={`${process.env.PUBLIC_URL}/img/logo.png`} onClick={goHome} />
+            <Logo src={`${process.env.PUBLIC_URL}/images/logo.png`} onClick={goHome} />
           </h1>
           <SearchInput type="text" value={searchValue2} placeholder="상품을 검색해보세요" onChange={onChangeSearch} />
         </SearchWrapper>

@@ -7,7 +7,7 @@ const SignLogo = () => {
 
   return (
     <div>
-      <LogoImg onClick={() => navigate('/')} src={`${process.env.PUBLIC_URL}/img/logo-big.png`} alt="logo" />
+      <LogoImg onClick={() => navigate('/')} src={`${process.env.PUBLIC_URL}/images/logo-big.png`} alt="logo" />
     </div>
   );
 };

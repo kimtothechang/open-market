@@ -12,7 +12,6 @@ function App() {
     <BrowserRouter>
       <Helmet>
         <title>오픈 마켓</title>
-        <link rel="icon" href="/images/favicon-16x16.ico" />
       </Helmet>
       <ScrollToTop />
       <Routes>
