@@ -12,7 +12,7 @@ function App() {
     <BrowserRouter>
       <Helmet>
         <title>오픈 마켓</title>
-        <link rel="icon" type="image/png" sizes="16x16" href={`${process.env.PUBLIC_URL}/favicon-16x16.png`} />
+        <link rel="icon" href="/images/favicon-16x16.ico" />
       </Helmet>
       <ScrollToTop />
       <Routes>
